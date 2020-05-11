@@ -1,4 +1,3 @@
-
 #!/bin/sh
 
 #Skript um Wireguard auf dem Raspberry 1b zu installieren. Der Rasp1b hat einen älteren ARM Chip, deshlab muss das Paket extra kompiliert werden#
@@ -10,7 +9,7 @@ first_installation=0 #First Installation=1 or Update Installation=0
 
 if [ $# -eq 0 ] #Parameter-Check
    then
-      interface="client2" #My Default Interface an Raspberry 1b
+      interface="client2" #MY Default Interface an Raspberry 1b
    else
       interface=$1
 fi
