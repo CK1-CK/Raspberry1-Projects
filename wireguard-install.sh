@@ -43,6 +43,10 @@ if [ $first_installation -eq 1 ]
       #Update-Installation########################
       cd /home/pi/WireGuard/wireguard-tools
       git pull
+      cd src
+      make
+      sudo make install
+
       cd /home/pi/WireGuard/wireguard-linux-compat
       git pull
       cd src
