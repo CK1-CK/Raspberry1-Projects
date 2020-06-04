@@ -14,9 +14,9 @@ if [ $# -eq 0 ] #Parameter-Check
       interface=$1
 fi
 
-wireguard_start()  #WireGuard starten
+wireguard_start()  #WireGuard Start
 {
-   echo Wireguard startet
+   echo Wireguard is starting
    wg-quick down $interface
    wg-quick up $interface
    sudo systemctl daemon-reload
@@ -26,18 +26,26 @@ wireguard_start()  #WireGuard starten
 if [ $first_installation -eq 1 ]
    then
       echo Installation
-      #Erstinstallation###########################
-      sudo apt-get install raspberrypi-kernel-headers libmnl-dev libelf-dev build-essential git
+      #First Initial Installation###########################
+      sudo apt update
+      sudo apt-get install raspberrypi-kernel-headers libmnl-dev libelf-dev build-essential git checkinstall
       mkdir /home/pi/WireGuard
       cd /home/pi/WireGuard
-      git clone https://git.zx2c4.com/wireguard-linux-compat
+
       git clone https://git.zx2c4.com/wireguard-tools
+      cd wireguard-tools/src
+      make
+      sudo checkinstall
+
+
+      cd /home/pi/WireGuard
+      git clone https://git.zx2c4.com/wireguard-linux-compat
       cd wireguard-linux-compat/src
       make
       sudo make install
       sudo modinfo wireguard
       sudo modprobe wireguard
-      wireguard_start   #WireGuard starten
+      wireguard_start   #WireGuard Start
    else
       echo Update
       #Update-Installation########################
@@ -45,7 +53,8 @@ if [ $first_installation -eq 1 ]
       git pull
       cd src
       make
-      sudo make install
+      sudo checkinstall
+      #sudo make install #Alternative to checkinstall
 
       cd /home/pi/WireGuard/wireguard-linux-compat
       git pull
@@ -54,5 +63,5 @@ if [ $first_installation -eq 1 ]
       sudo make install
       sudo modinfo wireguard
       sudo modprobe wireguard
-      wireguard_start #WireGuard starten   
+      wireguard_start #WireGuard Start   
 fi
