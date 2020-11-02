@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#Skript um Wireguard auf dem Raspberry 1b zu installieren. Der Rasp1b hat einen älteren ARM Chip, deshlab muss das Paket extra kompiliert werden#
+#Skript um Wireguard auf dem Raspberry 1b zu installieren. Der Rasp1b hat einen älteren ARM Chip, deshalb muss das Paket extra kompiliert werden
 #Parameter 1: Interfacename
 #e.g.  Raspberry1-wireguard-installation client2
 
@@ -35,8 +35,7 @@ if [ $first_installation -eq 1 ]
       git clone https://git.zx2c4.com/wireguard-tools
       cd wireguard-tools/src
       make
-      sudo checkinstall
-
+      sudo make install #Alternative zu checkinstall --> Achtung checkinstall geht bei Kernelmodulen/Treibern nicht
 
       cd /home/pi/WireGuard
       git clone https://git.zx2c4.com/wireguard-linux-compat
@@ -53,8 +52,7 @@ if [ $first_installation -eq 1 ]
       git pull
       cd src
       make
-      sudo checkinstall
-      #sudo make install #Alternative to checkinstall
+      sudo make install #Alternative zu checkinstall --> Achtung checkinstall geht bei Kernelmodulen/Treibern nicht
 
       cd /home/pi/WireGuard/wireguard-linux-compat
       git pull
